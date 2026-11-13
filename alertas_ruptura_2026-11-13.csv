@@ -1,0 +1,4 @@
+﻿sku;nome_produto;saldo_atual;estoque_seguranca;lead_time_fornecedor;demanda_diaria;dias_cobertura;lead_time_entrega_medio;taxa_otif_percentual;status_alerta
+SKU-003;Notebook Ultrafino 16GB;8;10;10;5,2;1,5;3,94;63,27;Saldo <= Estoque Segurança | Cobertura <= Lead Time Fornecedor
+SKU-005;Teclado Mecânico RGB;5;15;4;3,13;1,6;3,84;70,97;Saldo <= Estoque Segurança | Cobertura <= Lead Time Fornecedor
+SKU-001;Smartphone Pro Max;15;20;7;4,8;3,1;3,84;72,0;Saldo <= Estoque Segurança | Cobertura <= Lead Time Fornecedor
