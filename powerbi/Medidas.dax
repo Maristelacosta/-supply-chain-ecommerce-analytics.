@@ -1,0 +1,46 @@
+// Tabela calculada para o modelo de dados (Modelagem → Nova tabela).
+Calendario =
+VAR DataInicial = MINX ( ALL ( Pedidos ), Pedidos[data_entrega_real] )
+VAR DataFinal = MAXX ( ALL ( Pedidos ), Pedidos[data_entrega_real] )
+RETURN
+    ADDCOLUMNS (
+        CALENDAR ( DataInicial, DataFinal ),
+        "Ano", YEAR ( [Date] ),
+        "Mês Número", MONTH ( [Date] ),
+        "Mês", FORMAT ( [Date], "mmmm", "pt-BR" ),
+        "Ano-Mês", FORMAT ( [Date], "yyyy-MM" ),
+        "Trimestre", "T" & FORMAT ( [Date], "Q" )
+    )
+
+// Medidas (Modelagem → Nova medida). Formate as taxas como porcentagem e o frete como moeda.
+Pedidos = COUNTROWS ( Pedidos )
+
+OTIF % =
+DIVIDE (
+    CALCULATE ( [Pedidos], Pedidos[OTIF] = TRUE () ),
+    [Pedidos]
+)
+
+On-Time % =
+DIVIDE (
+    CALCULATE ( [Pedidos], Pedidos[On-Time] = TRUE () ),
+    [Pedidos]
+)
+
+In-Full % =
+DIVIDE (
+    CALCULATE ( [Pedidos], Pedidos[In-Full] = TRUE () ),
+    [Pedidos]
+)
+
+Frete Médio = AVERAGE ( Pedidos[valor_frete] )
+
+Atraso Médio (dias) = AVERAGE ( Pedidos[Dias de Atraso] )
+
+Produtos em Ruptura =
+CALCULATE (
+    DISTINCTCOUNT ( Produtos[id_produto] ),
+    Produtos[ Risco de Ruptura ] = TRUE ()
+)
+
+Estoque Total = SUM ( Produtos[estoque_atual] )
